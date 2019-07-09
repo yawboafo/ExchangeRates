@@ -31,8 +31,10 @@ class ExChangeViewModel: NSObject {
   var timer : Timer!
   var pair: String = ""
   
+  var activeModel : ExChangeModel!
+  
   var xchangeRates = [ExChangeModel]() {
-      didSet {
+     didSet {
         self.update()
     }
    }
@@ -42,16 +44,14 @@ class ExChangeViewModel: NSObject {
         
         switch pairsHandler {
         case .delete:
-          //Do nothing
-          break
+        break
         case .update:
            self.loadRates()
         }
-       
-        
-        
+
     }
   }
+  
   var error = RequestError.noData{
     didSet { self.errorNotify(RequestError.errorName(error: error)) }
   }
@@ -66,11 +66,15 @@ class ExChangeViewModel: NSObject {
        }
     }
   func infinityRateFetcher(){
+    
+    if repo.pairs().count > 0 {
      timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
        self.loadRates()
        })
      timer.fire()
-  
+    }else{
+      xchangeRates = []
+    }
    }
   
   func shouldDisable(_pair: String) -> Bool {

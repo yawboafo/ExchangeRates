@@ -169,17 +169,13 @@
 		4804588C22CEAFB000C5C942 /* ExchangeRates */ = {
 			isa = PBXGroup;
 			children = (
-				480F95B222D2C232005F92EA /* Services */,
+				482008A622D533A900ED25C4 /* Core */,
 				480F95A322D128AE005F92EA /* HTTPServices */,
 				480F957E22CF82BF005F92EA /* Extensions */,
 				480F957322CF45C1005F92EA /* ViewModels */,
 				480F957122CF456B005F92EA /* StoryBoards */,
 				480F957022CF4550005F92EA /* Resources */,
 				480F956E22CF4537005F92EA /* UIViews */,
-				4804588D22CEAFB000C5C942 /* AppDelegate.swift */,
-				480F958122CF9846005F92EA /* Constant.swift */,
-				4820089822D408CB00ED25C4 /* Rates_DB.xcdatamodeld */,
-				482008A322D40F2500ED25C4 /* CoreDataManager.swift */,
 			);
 			path = ExchangeRates;
 			sourceTree = "<group>";
@@ -229,6 +225,9 @@
 		480F957022CF4550005F92EA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				480F958122CF9846005F92EA /* Constant.swift */,
+				4804588D22CEAFB000C5C942 /* AppDelegate.swift */,
+				4820089822D408CB00ED25C4 /* Rates_DB.xcdatamodeld */,
 				4804589922CEAFB100C5C942 /* Info.plist */,
 				4804589422CEAFB100C5C942 /* Assets.xcassets */,
 				480F956C22CF44A6005F92EA /* main.bundle */,
@@ -287,10 +286,10 @@
 		480F958E22D01F63005F92EA /* ExchangeViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				482008A522D5338A00ED25C4 /* Model */,
+				480F95B222D2C232005F92EA /* Services */,
 				482008A022D40B1700ED25C4 /* Dto */,
 				4820089B22D40A6900ED25C4 /* DBModel */,
-				480F958322CF9957005F92EA /* ExChangeViewModel.swift */,
-				480F958522CF9989005F92EA /* ExChangeModel.swift */,
 			);
 			path = ExchangeViewModel;
 			sourceTree = "<group>";
@@ -343,6 +342,23 @@
 				482008A122D40B9100ED25C4 /* ExchangeDto.swift */,
 			);
 			path = Dto;
+			sourceTree = "<group>";
+		};
+		482008A522D5338A00ED25C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				480F958322CF9957005F92EA /* ExChangeViewModel.swift */,
+				480F958522CF9989005F92EA /* ExChangeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		482008A622D533A900ED25C4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				482008A322D40F2500ED25C4 /* CoreDataManager.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

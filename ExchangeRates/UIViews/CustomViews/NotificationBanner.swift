@@ -51,7 +51,7 @@ class NotificationBanner: UIView {
     var parentView: UIView = UIView()
     parentView.translatesAutoresizingMaskIntoConstraints = false
     parentView.sizeToFit()
-     return parentView
+    return parentView
   }()
   
 
@@ -62,7 +62,6 @@ class NotificationBanner: UIView {
     titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     titleLabel.textAlignment = .left
-    
     return titleLabel
   }()
   
@@ -74,7 +73,6 @@ class NotificationBanner: UIView {
     messageLabel.translatesAutoresizingMaskIntoConstraints = false
     messageLabel.textAlignment = .left
     messageLabel.numberOfLines = 0
-    
     return messageLabel
   }()
   
@@ -98,20 +96,17 @@ class NotificationBanner: UIView {
     messageLabel.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor,constant: -10).isActive = true
     errorTitleLabel.text =  self.title
     messageLabel.text = self.message
-    
     backgroundView.backgroundColor = bColor
    
   }
   
   func show(){
-    
-    if self.parentView != nil {
-      self.parentView.view.addSubview(backgroundView)
-      delay(time: 7.0) {
-        self.backgroundView.removeFromSuperview()
-      }
-      
+    guard let _mainView = self.parentView else { return  }
+    _mainView.view.addSubview(backgroundView)
+    delay(time: 5.0) {
+      self.backgroundView.removeFromSuperview()
     }
+    
      
   }
   
