@@ -14,13 +14,10 @@ protocol ExchangeRepoDelegate {
   func pairs()-> Set<String>
   func rates()->[ExChangeModel]
   func getRates(completion: @escaping (Result<[ExChangeModel], RequestError>) -> Void)
-  func getRates()-> [ExChangeModel]
+ 
 }
 
 final class ExchangeRepo : ExchangeRepoDelegate {
-  
-  
-
   
  
   private let apiService: ExchangeAPIService
@@ -54,11 +51,7 @@ final class ExchangeRepo : ExchangeRepoDelegate {
     }
   }
 }
-  func getRates() -> [ExChangeModel] {
-    return self.sService.getXchangeRates().compactMap { data in
-      ExChangeModel(key: data.pair, value: data.rate)
-    }
-  }
+  
   
   func rates() -> [ExChangeModel] {
     return self._rates

@@ -49,45 +49,18 @@ class AddCurrencyPairViewController: UIViewController {
     print("number rows in section 1 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 1)) : Number of rows in section 0 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 0))")
     
   }
-  
-  override func viewWillAppear(_ animated: Bool) {
-     swipeHelp()
-  }
   override func viewDidAppear(_ animated: Bool) {
-   
     exchangeModel.infinityRateFetcher()
+    showEmptyState()
+    print("TableView number of sections \(self.addCurrencyRateTableView.numberOfSections)")
+     swipeHelp()
+    
+   
   }
   override func viewWillDisappear(_ animated: Bool) {
     guard let timer = exchangeModel.timer else { return  }
      timer.invalidate()
 }
-  func reloadLogic(){
-
-  switch reloadMode {
-  case .full:
-    self.addCurrencyRateTableView.reloadData()
-    break
-  case .partial:
-    self.smartTableviewReload()
-    break
-  case .none:
-    break
-  }
-  self.showEmptyState()
-
-  print("reload mode  : \(self.reloadMode)")
-  print("data source count : \(self.exchangeModel.xchangeRates.count)")
-    print("number rows in section 1 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 1)) : Number of rows in section 0 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 0))")
-}
- 
-  func swipeHelp(){
-  
-    if fistTime == true && self.exchangeModel.xchangeRates.count > 0 {
-      NotificationBanner(parentView: self, title: "Help", message: "Swipe to remove Paired Currency" ,bannerType: .success).show()
-      self.fistTime = false
-    }
-    
-  }
   
   }
 
@@ -96,28 +69,27 @@ extension AddCurrencyPairViewController: UITableViewDelegate,UITableViewDataSour
   
   func numberOfSections(in tableView: UITableView) -> Int {
     
-    return 2
+  if self.exchangeModel.xchangeRates.count == 0 {
+    //  showEmptyState()
+      print("Exchangec count : number of sections should be 0")
+      return 0
+    }else {
+      print("else number of sections should be 2")
+     showEmptyState()
+     return 2
+    }
     
   }
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   
-  switch section {
-  case 0:
-    if self.exchangeModel.xchangeRates.count == 0 {
-      return 0
-    }else {
-    return 1
-    }
-  case 1:
-    
-    if self.exchangeModel.xchangeRates.count == 0 {
-      return 0
-    }else {
+    switch section {
+    case 0:
+      return 1
+    case 1:
       return exchangeModel.xchangeRates.count
+    default:
+      return 0
     }
-  default:
-    return 0
-  }
 }
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
@@ -145,14 +117,11 @@ extension AddCurrencyPairViewController: UITableViewDelegate,UITableViewDataSour
     case 0:
       guard let timer = exchangeModel.timer else { return  }
       timer.invalidate()
-      presentCurrencyRateView()
+     presentCurrencyRateView()
       break
-      
-    default: break
-      
+      default: break
+      }
     }
-    
-  }
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
   if editingStyle == .delete {
     print("Deleted")
@@ -161,29 +130,24 @@ extension AddCurrencyPairViewController: UITableViewDelegate,UITableViewDataSour
     self.exchangeModel.pairsHandler = .delete
     self.reloadMode = .none
     self.exchangeModel.activeModel = item
-  
-    
     self.exchangeModel.xchangeRates.remove(at: indexPath.row)
-   self.exchangeModel.repo.remove(pair: item.pairedValue)
-    
-    
-    self.addCurrencyRateTableView.beginUpdates()
-    
-    if self.exchangeModel.xchangeRates.count == 0 {
-      
-    
-      
-     //   self.addCurrencyRateTableView.deleteSections(NSIndexSet(index: 0) as IndexSet, with: .fade)
-      //self.addCurrencyRateTableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .fade)
-      print("Dead : number rows in section 1 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 1)) : Number of rows in section 0 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 0))")
-    }else{
-      let indexPath = IndexPath(item: indexPath.row, section: 1)
-      self.addCurrencyRateTableView.deleteRows(at: [indexPath], with: .fade)
-    }
-    
-   
   
-    self.addCurrencyRateTableView.endUpdates()
+    
+    if tableView.numberOfRows(inSection: 1) > 1 {
+      let indexPath = IndexPath(item: indexPath.row, section: 1)
+      tableView.deleteRows(at: [indexPath], with: .bottom)
+    }else{
+      guard let timer = exchangeModel.timer else { return  }
+      timer.invalidate()
+      let indexSet = NSMutableIndexSet()
+      print("deleting ..section. \(indexPath.section)")
+       print("number of rows in \(indexPath.section) = \(tableView.numberOfRows(inSection: 1))")
+      
+      tableView.reloadData()
+      indexSet.add(indexPath.section)
+     // tableView.deleteSections(indexSet as IndexSet, with: UITableView.RowAnimation.bottom)
+
+    }
 
   }
 }
@@ -195,9 +159,11 @@ extension AddCurrencyPairViewController: UITableViewDelegate,UITableViewDataSour
 }
   func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
     
-   
+    print("number of sections before editing \(tableView.numberOfSections)")
       self.activeIndexPath = indexPath
     if self.exchangeModel.xchangeRates.count == 0  {
+   guard let timer = exchangeModel.timer else { return  }
+        timer.invalidate()
       self.reloadMode = .none
     }else {
       self.reloadMode = .partial
@@ -206,8 +172,11 @@ extension AddCurrencyPairViewController: UITableViewDelegate,UITableViewDataSour
    
   }
   func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-    
+    print("number of sections after editing \(tableView.numberOfSections)")
     if self.exchangeModel.xchangeRates.count == 0  {
+    guard let timer = exchangeModel.timer else { return  }
+        timer.invalidate()
+      
       self.reloadMode = .none
     }else {
       self.reloadMode = .full
@@ -297,6 +266,38 @@ extension AddCurrencyPairViewController : EmptyTableUIViewDelegate {
     return viewController
   
 }
+  
+}
+
+
+extension AddCurrencyPairViewController {
+  func reloadLogic(){
+    
+    switch reloadMode {
+    case .full:
+      self.addCurrencyRateTableView.reloadData()
+      break
+    case .partial:
+      self.smartTableviewReload()
+      break
+    case .none:
+      break
+    }
+    self.showEmptyState()
+    
+    print("Pairs : \(self.exchangeModel.repo.pairs())")
+    print("reload mode  : \(self.reloadMode)")
+    print("data source count : \(self.exchangeModel.xchangeRates.count)")
+    print("number rows in section 1 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 1)) : Number of rows in section 0 = \(self.addCurrencyRateTableView.numberOfRows(inSection: 0))")
+  }
+  func swipeHelp(){
+    
+    if fistTime == true && self.exchangeModel.xchangeRates.count > 0 {
+      NotificationBanner(parentView: self, title: "Help", message: "Swipe to remove Paired Currency" ,bannerType: .success).show()
+      self.fistTime = false
+    }
+    
+  }
   
 }
   

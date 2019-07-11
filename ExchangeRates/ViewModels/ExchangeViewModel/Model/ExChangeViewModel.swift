@@ -34,23 +34,23 @@ class ExChangeViewModel: NSObject {
   var activeModel : ExChangeModel!
   
   var xchangeRates = [ExChangeModel]() {
+    
+    willSet {
+      switch pairsHandler {
+      case .delete:
+        self.repo.remove(pair: activeModel.pairedValue)
+        break
+      case .update:
+        break
+      }
+    }
+    
      didSet {
         self.update()
     }
    }
   
-  var pairs = Set<String>() {
-      didSet {
-        
-        switch pairsHandler {
-        case .delete:
-        break
-        case .update:
-           self.loadRates()
-        }
-
-    }
-  }
+  var pairs = Set<String>()
   
   var error = RequestError.noData{
     didSet { self.errorNotify(RequestError.errorName(error: error)) }
@@ -73,7 +73,7 @@ class ExChangeViewModel: NSObject {
        })
      timer.fire()
     }else{
-      xchangeRates = []
+       xchangeRates = []
     }
    }
   

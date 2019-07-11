@@ -103,7 +103,7 @@ class NotificationBanner: UIView {
   func show(){
     guard let _mainView = self.parentView else { return  }
     _mainView.view.addSubview(backgroundView)
-    delay(time: 5.0) {
+    delay(time: 4.0) {
       self.backgroundView.removeFromSuperview()
     }
     

@@ -45,11 +45,7 @@
 		480F95BA22D39160005F92EA /* ExchangeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480F95B922D39160005F92EA /* ExchangeViewModelTests.swift */; };
 		480F95BC22D39A6C005F92EA /* ExchangeModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480F95BB22D39A6C005F92EA /* ExchangeModelTests.swift */; };
 		480F95BE22D3B475005F92EA /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480F95BD22D3B475005F92EA /* NotificationBanner.swift */; };
-		4820089A22D408CB00ED25C4 /* Rates_DB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4820089822D408CB00ED25C4 /* Rates_DB.xcdatamodeld */; };
-		4820089E22D40A8D00ED25C4 /* DBExchange+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4820089C22D40A8D00ED25C4 /* DBExchange+CoreDataClass.swift */; };
-		4820089F22D40A8D00ED25C4 /* DBExchange+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4820089D22D40A8D00ED25C4 /* DBExchange+CoreDataProperties.swift */; };
 		482008A222D40B9100ED25C4 /* ExchangeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482008A122D40B9100ED25C4 /* ExchangeDto.swift */; };
-		482008A422D40F2500ED25C4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482008A322D40F2500ED25C4 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,11 +110,7 @@
 		480F95B922D39160005F92EA /* ExchangeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeViewModelTests.swift; sourceTree = "<group>"; };
 		480F95BB22D39A6C005F92EA /* ExchangeModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeModelTests.swift; sourceTree = "<group>"; };
 		480F95BD22D3B475005F92EA /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
-		4820089922D408CB00ED25C4 /* Rates_DB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Rates_DB.xcdatamodel; sourceTree = "<group>"; };
-		4820089C22D40A8D00ED25C4 /* DBExchange+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBExchange+CoreDataClass.swift"; sourceTree = "<group>"; };
-		4820089D22D40A8D00ED25C4 /* DBExchange+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DBExchange+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		482008A122D40B9100ED25C4 /* ExchangeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDto.swift; sourceTree = "<group>"; };
-		482008A322D40F2500ED25C4 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +161,6 @@
 		4804588C22CEAFB000C5C942 /* ExchangeRates */ = {
 			isa = PBXGroup;
 			children = (
-				482008A622D533A900ED25C4 /* Core */,
 				480F95A322D128AE005F92EA /* HTTPServices */,
 				480F957E22CF82BF005F92EA /* Extensions */,
 				480F957322CF45C1005F92EA /* ViewModels */,
@@ -227,7 +218,6 @@
 			children = (
 				480F958122CF9846005F92EA /* Constant.swift */,
 				4804588D22CEAFB000C5C942 /* AppDelegate.swift */,
-				4820089822D408CB00ED25C4 /* Rates_DB.xcdatamodeld */,
 				4804589922CEAFB100C5C942 /* Info.plist */,
 				4804589422CEAFB100C5C942 /* Assets.xcassets */,
 				480F956C22CF44A6005F92EA /* main.bundle */,
@@ -289,7 +279,6 @@
 				482008A522D5338A00ED25C4 /* Model */,
 				480F95B222D2C232005F92EA /* Services */,
 				482008A022D40B1700ED25C4 /* Dto */,
-				4820089B22D40A6900ED25C4 /* DBModel */,
 			);
 			path = ExchangeViewModel;
 			sourceTree = "<group>";
@@ -327,15 +316,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		4820089B22D40A6900ED25C4 /* DBModel */ = {
-			isa = PBXGroup;
-			children = (
-				4820089C22D40A8D00ED25C4 /* DBExchange+CoreDataClass.swift */,
-				4820089D22D40A8D00ED25C4 /* DBExchange+CoreDataProperties.swift */,
-			);
-			path = DBModel;
-			sourceTree = "<group>";
-		};
 		482008A022D40B1700ED25C4 /* Dto */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,14 +331,6 @@
 				480F958522CF9989005F92EA /* ExChangeModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		482008A622D533A900ED25C4 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				482008A322D40F2500ED25C4 /* CoreDataManager.swift */,
-			);
-			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -495,7 +467,6 @@
 			files = (
 				480F95A922D29A35005F92EA /* ExchangeResponse.swift in Sources */,
 				480F95AF22D2B8B2005F92EA /* ExchangeAPIService.swift in Sources */,
-				4820089A22D408CB00ED25C4 /* Rates_DB.xcdatamodeld in Sources */,
 				480F959222D0C29B005F92EA /* RequestError.swift in Sources */,
 				480F95B422D2C2B9005F92EA /* ExchangeStorageService.swift in Sources */,
 				480F95A022D0F915005F92EA /* String+Extensions.swift in Sources */,
@@ -513,12 +484,9 @@
 				480458C122CEDB0E00C5C942 /* AddCurrencyPairCell.swift in Sources */,
 				480F95AB22D29AA3005F92EA /* RequestExecuter.swift in Sources */,
 				480F95B122D2BB6C005F92EA /* ExchangeRepo.swift in Sources */,
-				4820089E22D40A8D00ED25C4 /* DBExchange+CoreDataClass.swift in Sources */,
-				482008A422D40F2500ED25C4 /* CoreDataManager.swift in Sources */,
 				480F957D22CF77D2005F92EA /* CurrencyModel.swift in Sources */,
 				482008A222D40B9100ED25C4 /* ExchangeDto.swift in Sources */,
 				480F95A522D13CFE005F92EA /* NSMutableAttributedString+Extensions.swift in Sources */,
-				4820089F22D40A8D00ED25C4 /* DBExchange+CoreDataProperties.swift in Sources */,
 				480F959822D0C533005F92EA /* HTTPMethod.swift in Sources */,
 				4804589022CEAFB000C5C942 /* AddCurrencyPairViewController.swift in Sources */,
 				480F959C22D0E1A2005F92EA /* RequestURLs.swift in Sources */,
@@ -858,19 +826,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		4820089822D408CB00ED25C4 /* Rates_DB.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4820089922D408CB00ED25C4 /* Rates_DB.xcdatamodel */,
-			);
-			currentVersion = 4820089922D408CB00ED25C4 /* Rates_DB.xcdatamodel */;
-			path = Rates_DB.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4804588222CEAFB000C5C942 /* Project object */;
 }
